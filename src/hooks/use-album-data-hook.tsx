@@ -1,5 +1,5 @@
-import { useContext } from "react";
-import AlbumDataContext from "../contexts/album-data/album-data-context";
+import { useContext } from 'react';
+import AlbumDataContext from '../contexts/album-data/album-data-context';
 
 export const useAlbumData = () => {
   const context = useContext(AlbumDataContext);

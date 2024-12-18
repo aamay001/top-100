@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { useAlbumData } from "../hooks/use-album-data-hook";
+import { useEffect, useState } from 'react';
+import { useAlbumData } from '../hooks/use-album-data-hook';
 
 const Home = () => {
   const { refresh, meta, albums, isLoading } = useAlbumData();

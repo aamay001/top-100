@@ -1,10 +1,10 @@
-import { Route, Routes } from 'react-router'
-import './App.css'
-import AlbumDataProvider from './contexts/album-data/album-data-provider'
-import Home from './pages/Home'
+import { Route, Routes } from 'react-router';
+import AlbumDataProvider from './contexts/album-data/album-data-provider';
+import Home from './pages/Home';
+
+import './App.css';
 
 function App() {
-
   return (
     <>
       <AlbumDataProvider>
@@ -13,7 +13,7 @@ function App() {
         </Routes>
       </AlbumDataProvider>
     </>
-  )
+  );
 }
 
 export default App

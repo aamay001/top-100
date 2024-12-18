@@ -1,17 +1,17 @@
-import { ITunesAlbum, ItunesAlbumFeed } from "../types/itunes-album-feed"
+import { ITunesAlbum, ItunesAlbumFeed } from '../types/itunes-album-feed';
 
 const parseSingleAlbum = (albumObject: ITunesAlbum): Album => {
   const {
-    "im:name": name,
-    "im:image": images,
-    "im:itemCount": trackCount,
-    "im:price": price,
+    'im:name': name,
+    'im:image': images,
+    'im:itemCount': trackCount,
+    'im:price': price,
     title,
     link,
     id,
-    "im:artist": artist,
+    'im:artist': artist,
     category,
-    "im:releaseDate": releaseDate,
+    'im:releaseDate': releaseDate,
     rights,
   } = albumObject;
 
@@ -25,10 +25,10 @@ const parseSingleAlbum = (albumObject: ITunesAlbum): Album => {
     },
     title: title.label,
     link: link.attributes.href,
-    id: parseInt(id.attributes["im:id"], 10),
+    id: parseInt(id.attributes['im:id'], 10),
     artist: artist.label,
     category: {
-      id: parseInt(category.attributes["im:id"], 10),
+      id: parseInt(category.attributes['im:id'], 10),
       name: category.attributes.label,
     },
     releaseDate: {
