@@ -1,6 +1,10 @@
 interface Album {
   name: string,
-  image: string,
+  images: {
+    small: string,
+    medium: string,
+    large: string,
+  }
   trackCount: number,
   price: {
     amount: number,

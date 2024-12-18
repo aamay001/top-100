@@ -17,7 +17,11 @@ const parseSingleAlbum = (albumObject: ITunesAlbum): Album => {
 
   const album: Album = {
     name: name.label,
-    image: images.filter(i => i.attributes.height === '170' )[0].label,
+    images: {
+      small: images.filter(i => i.attributes.height === '55' )[0].label,
+      medium: images.filter(i => i.attributes.height === '60' )[0].label,
+      large: images.filter(i => i.attributes.height === '170' )[0].label,
+    },
     trackCount: parseInt(trackCount.label, 10),
     price: {
       amount: parseFloat(price.attributes.amount),
