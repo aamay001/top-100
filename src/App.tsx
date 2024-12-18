@@ -1,13 +1,17 @@
 import { Route, Routes } from 'react-router'
 import './App.css'
+import AlbumDataProvider from './contexts/album-data/album-data-provider'
+import Home from './pages/Home'
 
 function App() {
 
   return (
     <>
-      <Routes>
-        <Route path="/" element={<h1>Top 100</h1>} />
-      </Routes>
+      <AlbumDataProvider>
+        <Routes>
+          <Route path="/" element={<Home />} />
+        </Routes>
+      </AlbumDataProvider>
     </>
   )
 }
