@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
-import { useAlbumData } from '../hooks/use-album-data-hook';
+import { useAlbumData } from '../hooks/use-album-data';
+import { H1, ListItem, Paragraph, XStack, YGroup, YStack, Separator } from 'tamagui';
 
 const Home = () => {
   const { refresh, meta, albums, isLoading } = useAlbumData();
@@ -14,33 +15,39 @@ const Home = () => {
     if (meta) {
       setLastUpdate(meta?.updated);
     }
-  }, [meta])
+  }, [meta]);
   
   return (
-    <div>
-      <h1>Home</h1>
-      {isLoading &&
-        <p>Loading...</p>}
-      <em>
-        {lastUpdate && lastUpdate.toLocaleString()}
-      </em>
-      <ol>
-        {albums.map(album => {
-          const {
-            name,
-            artist,
-            category,
-            id,
-          } = album;
+    <XStack fullscreen backgroundColor="black">
+      <YStack>
 
-          return (
-            <li key={id}>
-              {`${name} - ${artist} - ${category.name}`}
-            </li>
-          );
-        })}
-      </ol>
-    </div>
+      </YStack>
+      <YStack>
+          <H1>Home</H1>
+          {isLoading &&
+            <Paragraph>Loading...</Paragraph>}
+          <em>
+            {lastUpdate && lastUpdate.toLocaleString()}
+          </em>
+          <YGroup bordered separator={<Separator />}>
+            {albums.map((album, index) => {
+              const {
+                name,
+                artist,
+                id,
+              } = album;
+
+              return (
+                <YGroup.Item key={id}>
+                  <ListItem title={`${index + 1}. ${name}`}>
+                    <ListItem.Subtitle>{artist}</ListItem.Subtitle>
+                  </ListItem>
+                </YGroup.Item>
+              );
+            })}
+          </YGroup>
+        </YStack>
+    </XStack>
   );
 }
 
