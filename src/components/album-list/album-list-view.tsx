@@ -2,10 +2,10 @@ import { H1, Spinner, XStack, YStack } from "tamagui";
 
 import AlbumList from "./album-list";
 import { useEffect, useState } from "react";
-import AlbumView from "./album-view";
+import AlbumView from "../album/album-view";
 
-import "../styles/album-list.view.scss";
-import { useOrientation } from "../hooks/use-orientation";
+import "../../styles/album-list.view.scss";
+import { useOrientation } from "../../hooks/use-orientation";
 
 interface AlbumListViewProps {
   title: string;

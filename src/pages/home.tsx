@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useAlbumData } from '../hooks/use-album-data';
 import { YStack } from 'tamagui';
-import AlbumListView from '../components/album-list-view';
+import AlbumListView from '../components/album-list/album-list-view';
 
 const Home = () => {
   const { refresh, albums, isLoading } = useAlbumData();
