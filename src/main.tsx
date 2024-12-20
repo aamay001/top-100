@@ -5,7 +5,7 @@ import { TamaguiProvider, createTamagui } from 'tamagui';
 import * as defaultConfig from '@tamagui/config/v3';
 
 import 'normalize.css';
-import App from './app';
+import App from './app.tsx';
 
 const config = createTamagui(defaultConfig);
 
