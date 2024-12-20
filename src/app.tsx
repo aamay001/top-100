@@ -1,6 +1,5 @@
 import { Route, Routes } from 'react-router';
-import { Theme } from 'tamagui';
-import { PortalProvider } from '@tamagui/portal';
+import { Theme, PortalProvider } from 'tamagui';
 
 import AlbumDataProvider from './contexts/album-data/album-data-provider';
 import Home from './pages/home';
