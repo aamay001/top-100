@@ -32,7 +32,7 @@ const AlbumView: React.FC<AlbumViewProps> = ({
       className="album-view-container"
     >
       <Card.Header padded>
-        <H2 size="$8">
+        <H2 size="$7">
           {listPosition && `${listPosition}. `}{album?.name}
         </H2>
         <Paragraph className="album-view-category">
