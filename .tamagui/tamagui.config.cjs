@@ -28062,7 +28062,7 @@ function isPresent(context) {
 }
 __name(isPresent, "isPresent");
 
-// node_modules/@tamagui/animations-css/dist/esm/createAnimations.mjs
+// node_modules/@tamagui/config/node_modules/@tamagui/animations-css/dist/esm/createAnimations.mjs
 var import_web2 = require("@tamagui/core");
 var import_react2 = __toESM(require("react"), 1);
 function createAnimations(animations) {
