@@ -1,5 +1,5 @@
 import { Route, Routes } from 'react-router';
-import { Theme } from 'tamagui';
+import { Theme, PortalProvider } from 'tamagui';
 
 import AlbumDataProvider from './contexts/album-data/album-data-provider';
 import Home from './pages/home';
@@ -11,11 +11,13 @@ function App() {
     <>
       <Theme name="dark">
         <Theme name="blue">
-          <AlbumDataProvider>
-            <Routes>
-              <Route path="/" element={<Home />} />
-            </Routes>
-          </AlbumDataProvider>
+          <PortalProvider shouldAddRootHost>
+            <AlbumDataProvider>
+              <Routes>
+                <Route path="/" element={<Home />} />
+              </Routes>
+            </AlbumDataProvider>
+          </PortalProvider>
         </Theme>
       </Theme>
     </>
