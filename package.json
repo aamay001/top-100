@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@tamagui/config": "^1.120.1",
+    "@tamagui/portal": "^1.120.2",
     "@tamagui/vite-plugin": "^1.120.1",
     "motion": "^11.15.0",
     "normalize.css": "^8.0.1",
