@@ -1,53 +1,24 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useAlbumData } from '../hooks/use-album-data';
-import { H1, ListItem, Paragraph, XStack, YGroup, YStack, Separator } from 'tamagui';
+import { YStack } from 'tamagui';
+import AlbumListView from '../components/album-list-view';
 
 const Home = () => {
-  const { refresh, meta, albums, isLoading } = useAlbumData();
-  const [lastUpdate, setLastUpdate] = useState<Date | null>(null);
+  const { refresh, albums, isLoading } = useAlbumData();
 
   useEffect(() => {
     refresh();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  useEffect(() => {
-    if (meta) {
-      setLastUpdate(meta?.updated);
-    }
-  }, [meta]);
   
   return (
-    <XStack fullscreen backgroundColor="black">
-      <YStack>
-
-      </YStack>
-      <YStack>
-          <H1>Home</H1>
-          {isLoading &&
-            <Paragraph>Loading...</Paragraph>}
-          <em>
-            {lastUpdate && lastUpdate.toLocaleString()}
-          </em>
-          <YGroup bordered separator={<Separator />}>
-            {albums.map((album, index) => {
-              const {
-                name,
-                artist,
-                id,
-              } = album;
-
-              return (
-                <YGroup.Item key={id}>
-                  <ListItem title={`${index + 1}. ${name}`}>
-                    <ListItem.Subtitle>{artist}</ListItem.Subtitle>
-                  </ListItem>
-                </YGroup.Item>
-              );
-            })}
-          </YGroup>
-        </YStack>
-    </XStack>
+    <YStack backgroundColor="black" padding="$5">
+      <AlbumListView 
+        title="Top 100 Albums" 
+        albums={albums} 
+        isLoading={isLoading} 
+      />
+    </YStack>
   );
 }
 

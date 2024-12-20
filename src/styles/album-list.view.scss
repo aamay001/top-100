@@ -1,0 +1,91 @@
+$pane-min-width: 300px;
+$pane-max-width: 100%;
+$pane-min-height: 300px;
+$pane-default-width: 100VW;
+$pane-default-margin: 10px;
+$album-list-view-content-max-height: calc(100VH - 450px);
+
+.album-list-view-container {
+  flex-wrap: wrap-reverse;
+  justify-content: center;
+  align-items: center;
+}
+
+.album-list-view-left-pane {
+  min-width: $pane-min-width;
+  min-height: $pane-min-height;
+  max-width: $pane-max-width;
+  width: $pane-default-width;
+  margin: $pane-default-margin;
+}
+
+.album-list-view-right-pane {
+  min-width: $pane-min-width;
+  min-height: $pane-min-height;
+  max-width: $pane-max-width;
+  width: $pane-default-width;
+  margin: $pane-default-margin;
+}
+
+.album-list-scroll-view {
+  max-height: $album-list-view-content-max-height;
+  min-height: 320px;
+  margin-bottom: 0;
+}
+
+.album-view-container  {
+  max-height: $album-list-view-content-max-height;
+  margin-bottom: 0;
+  overflow-y: scroll;
+}
+
+.album-view-category {
+  display: none !important;
+}
+
+.album-view-meta, .album-view-meta li {
+  list-style: none;
+  margin-left: 0;
+  padding-left: 0;
+}
+
+/* Small devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+  .album-list-view-left-pane {
+    max-width: 48VW;
+  }
+  
+  .album-list-view-right-pane {
+    max-width: 40VW;
+  }
+
+  .album-list-scroll-view {
+    max-height: calc(100VH - 155px);
+  }
+
+  .album-view-category {
+    display: block !important;
+  }
+}
+
+/* Medium devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+  .album-list-view-left-pane {
+    max-width: 50VW;
+  }
+  
+  .album-list-view-right-pane {
+    max-width: 40VW;
+  }
+}
+
+/* Large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+  .album-list-view-left-pane {
+    max-width: 30VW;
+  }
+  
+  .album-list-view-right-pane {
+    max-width: 25VW;
+  }
+}
