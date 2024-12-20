@@ -22,9 +22,7 @@ const AlbumListView: React.FC<AlbumListViewProps> = ({
   isLoading,
   albums,
 }) => {
-  const [selectedAlbum, setSelectedAlbum] = useState<
-    SelectedAlbumState | undefined
-  >(undefined);
+  const [selectedAlbum, setSelectedAlbum] = useState<SelectedAlbumState | undefined>(undefined);
 
   useEffect(() => {
     setSelectedAlbum({
@@ -41,19 +39,22 @@ const AlbumListView: React.FC<AlbumListViewProps> = ({
     <>
       <H1 paddingLeft={10} size="$9">{title}</H1>
       <XStack className="album-list-view-container">
-        <YStack className="album-list-view-left-pane">
-          {isLoading ? (
-            <Spinner size="large" />
-          ) : (
+      {isLoading
+        ? (
+          <Spinner size="large" marginTop={100} />
+      ) : (
+        <>
+          <YStack className="album-list-view-left-pane">
             <AlbumList albums={albums} onAlbumClicked={onAlbumClicked} />
-          )}
-        </YStack>
-        <YStack className="album-list-view-right-pane">
-          <AlbumView
-            album={selectedAlbum?.album}
-            listPosition={selectedAlbum?.position}
-          />
-        </YStack>
+          </YStack>
+          <YStack className="album-list-view-right-pane">
+            <AlbumView
+              album={selectedAlbum?.album}
+              listPosition={selectedAlbum?.position}
+            />
+          </YStack>
+        </>
+      )}
       </XStack>
     </>
   );

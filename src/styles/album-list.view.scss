@@ -49,6 +49,10 @@ $album-list-view-content-max-height: calc(100VH - 450px);
   padding-left: 0;
 }
 
+.album-view-meta li {
+  margin-bottom: 10px;
+}
+
 /* Small devices (tablets, 768px and up) */
 @media (min-width: 768px) {
   .album-list-view-left-pane {

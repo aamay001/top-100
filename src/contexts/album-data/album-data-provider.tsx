@@ -11,7 +11,7 @@ interface AlbumDataProviderProps {
 
 const AlbumDataProvider: React.FC<AlbumDataProviderProps> = ({ children }) => {
   const [albums, setAlbums] = useState<Album[]>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [feedMeta, setFeedMeta] = useState<AlbumFeedMeta | null>(null);
 
   const refresh = () => {
