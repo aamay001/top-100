@@ -2,7 +2,7 @@ import { Route, Routes } from 'react-router';
 import { Theme } from 'tamagui';
 
 import AlbumDataProvider from './contexts/album-data/album-data-provider';
-import Home from './pages/home';
+import Home from './pages/home.tsx';
 
 import './app.css';
 
