@@ -3,7 +3,7 @@ $pane-max-width: 100%;
 $pane-min-height: 300px;
 $pane-default-width: 100VW;
 $pane-default-margin: 10px;
-$album-list-view-content-max-height: calc(100VH - 450px);
+$album-list-view-content-max-height: 100%;
 
 .album-list-view-container {
   flex-wrap: wrap-reverse;
@@ -27,20 +27,13 @@ $album-list-view-content-max-height: calc(100VH - 450px);
   margin: $pane-default-margin;
 }
 
-.album-list-scroll-view {
-  max-height: $album-list-view-content-max-height;
-  min-height: 320px;
-  margin-bottom: 0;
-}
-
 .album-view-container  {
   max-height: $album-list-view-content-max-height;
   margin-bottom: 0;
-  overflow-y: scroll;
-}
-
-.album-view-category {
-  display: none !important;
+  position: sticky !important;
+  top: 10px;
+  overflow-y: auto !important;
+  max-height: 95VH;
 }
 
 .album-view-meta, .album-view-meta li {
@@ -61,14 +54,6 @@ $album-list-view-content-max-height: calc(100VH - 450px);
   
   .album-list-view-right-pane {
     max-width: 40VW;
-  }
-
-  .album-list-scroll-view {
-    max-height: calc(100VH - 155px);
-  }
-
-  .album-view-category {
-    display: block !important;
   }
 }
 

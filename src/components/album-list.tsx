@@ -1,4 +1,4 @@
-import { YStack, YGroup, Separator, ListItem, Image, ScrollView } from "tamagui";
+import { YStack, YGroup, Separator, ListItem, Image } from "tamagui";
 
 interface AlbumListProps {
   albums: Album[];
@@ -12,7 +12,6 @@ const AlbumList: React.FC<AlbumListProps> = ({
   return (
     <YStack>
       <YGroup bordered>
-      <ScrollView className="album-list-scroll-view">
         {albums.map((album, index) => {
           const { name, artist, id } = album;
           const position = index + 1;
@@ -43,7 +42,6 @@ const AlbumList: React.FC<AlbumListProps> = ({
             </YGroup.Item>
           );
         })}
-      </ScrollView>
       </YGroup>
     </YStack>
   );
