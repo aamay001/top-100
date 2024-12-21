@@ -31,7 +31,7 @@ const AlbumViewContent: React.FC<AlbumViewContentProps> = ({
           {rank && `${rank}. `}{album?.name}
         </H2>
         <Paragraph>
-          {album?.category.name}
+          {album?.category}
         </Paragraph>
       </Card.Header>
       <motion.div 
