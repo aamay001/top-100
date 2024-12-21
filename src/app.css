@@ -2,3 +2,9 @@ html {
   background-color: black;
   max-width: 100VW;
 }
+
+html * {
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-y;
+}
