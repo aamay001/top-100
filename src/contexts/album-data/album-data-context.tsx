@@ -6,7 +6,10 @@ interface AlbumDataContextValue {
   albums: AlbumData,
   meta: AlbumFeedMeta | null,
   refresh: () => void,
-  isLoading: boolean
+  isLoading: boolean,
+  categories: string[],
+  releaseYears: string[],
+  artists: string[],
 }
 
 const AlbumDataContext = createContext<AlbumDataContextValue | null>(null);
