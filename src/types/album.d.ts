@@ -14,10 +14,8 @@ interface Album {
   link:  string,
   id: number,
   artist: string,
-  category: {
-    id: number,
-    name: string,
-  },
+  category: string,
+  year: string,
   releaseDate: {
     value: Date,
     text: string,

@@ -31,14 +31,12 @@ const parseSingleAlbum = (albumObject: ITunesAlbum): Album => {
     link: link.attributes.href,
     id: parseInt(id.attributes['im:id'], 10),
     artist: artist.label,
-    category: {
-      id: parseInt(category.attributes['im:id'], 10),
-      name: category.attributes.label,
-    },
+    category: category.attributes.label,
     releaseDate: {
       value: new Date(releaseDate.label),
       text: releaseDate.attributes.label,
     },
+    year: new Date(releaseDate.label).getFullYear().toString(),
     rights: rights.label,
   };
 
