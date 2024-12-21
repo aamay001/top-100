@@ -79,6 +79,7 @@ const Search: React.FC<SearchFormProps> = ({
       category: '',
       artist: '',
     });
+    setCurrentResults(null);
     debouncedFilter(data, dataKey, value, onResultsFiltered);
   }
 
@@ -114,7 +115,13 @@ const Search: React.FC<SearchFormProps> = ({
     }
 
     setFilters(updatedFilters);
-    setCurrentResults(results);
+    if (updatedFilters.artist === '' && 
+      updatedFilters.category === '' && 
+      updatedFilters.year === '') {
+      setCurrentResults(null);
+    } else {
+      setCurrentResults(results);
+    }
     onSearch(results);
   }
 
