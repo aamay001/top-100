@@ -205,7 +205,9 @@ const Search: React.FC<SearchFormProps> = ({
                 }}
               >
                 <option value="">select artist</option>
-                {((filters.category || filters.year || query) && dedupAndSort(currentResults?.map(a => a.artist)) || artists).map(a => (
+                {((filters.category || filters.year || query) &&
+                  dedupAndSort(currentResults?.map(a => a.artist)) ||
+                  artists).map(a => (
                   <option key={a} value={a}>{a}</option>
                 ))}
               </select>
@@ -229,7 +231,9 @@ const Search: React.FC<SearchFormProps> = ({
               }}
             >
               <option value="">select category</option>
-              {((filters.artist || filters.year || query) && dedupAndSort(currentResults?.map(a => a.category)) || categories).map(c => (
+              {((filters.artist || filters.year || query) &&
+                dedupAndSort(currentResults?.map(a => a.category)) ||
+                categories).map(c => (
                 <option key={c} value={c}>{c}</option>
               ))}
             </select>
@@ -253,7 +257,9 @@ const Search: React.FC<SearchFormProps> = ({
               }}
             >
               <option value="">select year</option>
-              {((filters.category || filters.artist || query) && dedupAndSort(currentResults?.map(a => a.year)) || releaseYears).map(y => (
+              {((filters.category || filters.artist || query) &&
+                dedupAndSort(currentResults?.map(a => a.year)) ||
+                releaseYears).map(y => (
                 <option key={y} value={y}>{y}</option>
               ))}
             </select>
