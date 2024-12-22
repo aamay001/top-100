@@ -3,6 +3,7 @@ import { apiKey, apiEnpoint } from '../../settings/api-settings';
 import { H2, Paragraph, Spinner, XStack, YStack } from 'tamagui';
 import { YouTubeResponse } from '../../types/youtube-search-response';
 import YouTubeVideo from './youtube-video';
+import * as youTubeCache from '../../utility/youtube-data-cache';
 
 interface YouTubeVideosProps {
   searchTerm: string,
@@ -26,6 +27,12 @@ const YouTubeVideoList: React.FC<YouTubeVideosProps> = ({
       return;
     }
 
+    if (youTubeCache.hasYouTubeCached(searchTerm)) {
+      const cache = youTubeCache.getYouTubeCacheData(searchTerm);
+      setVideoInfo(cache);
+      return;
+    }
+
     const queryParam: { [key: string]: string } = {
       part: 'snippet',
       maxResults: '5',
@@ -44,6 +51,8 @@ const YouTubeVideoList: React.FC<YouTubeVideosProps> = ({
           const data: YouTubeResponse = await results.json();
 
           setVideoInfo(data);
+          youTubeCache.setYouTubeCache(searchTerm, data);
+          
         } else {
           setError(results);
           setIsLoading(false);
