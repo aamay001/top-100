@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { Sheet, useThemeName, YStack } from 'tamagui';
 
 import AlbumViewContent from './album-view-content';
+import useColorMode from '../../hooks/useColorMode';
 
 interface AlbumViewProps {
   album?: Album;
@@ -20,6 +21,7 @@ const AlbumView: React.FC<AlbumViewProps> = ({
   openModal,
 }) => {
   const [modalOpen, setOpen] = useState<boolean>(false);
+  const { colorModeBackgroundColor, colorMode } = useColorMode();
   const theme = useThemeName();
   
   useEffect(() => {
@@ -60,7 +62,8 @@ const AlbumView: React.FC<AlbumViewProps> = ({
             padding="$4" 
             alignItems="center" 
             overflow="scroll" 
-            theme={theme.split('_')[0]}
+            theme={colorMode}
+            backgroundColor={colorModeBackgroundColor}
           >
             <YStack width="100%" theme={theme}>
               <AlbumViewContent 
