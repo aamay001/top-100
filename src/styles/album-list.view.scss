@@ -9,6 +9,7 @@ $album-list-view-content-max-height: 100%;
   flex-wrap: wrap-reverse;
   justify-content: center;
   align-items: center;
+  min-height: 100VH;
 }
 
 .album-list-view-left-pane {
