@@ -1,5 +1,7 @@
 import { Paragraph } from 'tamagui';
+
 import '../../styles/youtube-video.scss';
+import unescapeHTML from '../../utility/clear-escape-chars';
 
 interface YouTubeVideoProps {
   videoId: string,
@@ -24,7 +26,7 @@ const YouTubeVideo: React.FC<YouTubeVideoProps> = ({
       >
       </iframe>
       <Paragraph>
-        {title}
+        {unescapeHTML(title)}
       </Paragraph>
     </div>
   );
