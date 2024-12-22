@@ -38,9 +38,7 @@ const YouTubeVideoList: React.FC<YouTubeVideosProps> = ({
       setIsLoading(false);
     }
 
-    setTimeout(() => {
-      fetchVideo();
-    }, 10);
+    fetchVideo();
 
   }, [searchTerm]);
 
