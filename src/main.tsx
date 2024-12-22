@@ -7,8 +7,10 @@ import * as defaultConfig from '@tamagui/config/v3';
 import 'normalize.css';
 import App from './app.tsx';
 import ColorModeProvider from './contexts/color-mode/color-mode-provider.tsx';
+import { initializeLikes } from './utility/like-manager.ts';
 
 const config = createTamagui(defaultConfig);
+initializeLikes();
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
