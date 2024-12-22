@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { apiKey, apiEnpoint } from '../../settings/api-settings';
-import { H2, Spinner, XStack, YStack } from 'tamagui';
+import { H2, Paragraph, Spinner, XStack, YStack } from 'tamagui';
 import { YouTubeResponse } from '../../types/youtube-search-response';
 import YouTubeVideo from './youtube-video';
 
@@ -45,12 +45,12 @@ const YouTubeVideoList: React.FC<YouTubeVideosProps> = ({
 
           setVideoInfo(data);
         } else {
-          console.log(results);
           setError(results);
+          setIsLoading(false);
         }
       } catch (error) {
-        console.error(error);
         setError(error);
+        setIsLoading(false);
       }
     }
 
@@ -65,7 +65,7 @@ const YouTubeVideoList: React.FC<YouTubeVideosProps> = ({
     }
   }
 
-  if (!apiKey.youTube || !apiEnpoint.youTube || error) {
+  if (!apiKey.youTube || !apiEnpoint.youTube || (error && (error as Response).status !== 403)) {
     return null;
   }
 
@@ -79,7 +79,12 @@ const YouTubeVideoList: React.FC<YouTubeVideosProps> = ({
         paddingRight="$4"
       >
         {isLoading && <Spinner size="large" />}
-        <ul style={{ 
+        {error && 
+          <Paragraph size="$4" textAlign="center">
+            YouTube API Quota reached!<br />
+            Try again tomorrow to see the YouTube results!
+          </Paragraph>}
+        {!error && <ul style={{ 
             padding: 0, 
             margin: 0, 
             marginTop: 15, 
@@ -98,7 +103,7 @@ const YouTubeVideoList: React.FC<YouTubeVideosProps> = ({
                 onLoad={onVideoDoneLoading} 
               />
             </li>)}
-        </ul>
+        </ul>}
       </XStack>
     </YStack>
   );

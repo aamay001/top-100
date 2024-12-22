@@ -18,15 +18,15 @@ const Home = () => {
   
   return (
     <YStack backgroundColor={colorModeBackgroundColor} padding="$5">
-        <ColorModeToggle />
-        <ErrorBoundary fallback={<Error />}>
-          <AlbumListView 
-            title="Top 100 Albums" 
-            albums={albums} 
-            isLoading={isLoading} 
-          />
-        </ErrorBoundary>
-      </YStack>
+      <ColorModeToggle />
+      <ErrorBoundary fallback={<Error />}>
+        <AlbumListView 
+          title="Top 100 Albums" 
+          albums={albums} 
+          isLoading={isLoading} 
+        />
+      </ErrorBoundary>
+    </YStack>
   );
 }
 
