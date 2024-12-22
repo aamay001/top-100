@@ -59,8 +59,8 @@ const YouTubeVideoList: React.FC<YouTubeVideosProps> = ({
           
         } else {
           setError(results);
-          setIsLoading(false);
         }
+        setIsLoading(false);
       } catch (error) {
         setError(error);
         setIsLoading(false);
