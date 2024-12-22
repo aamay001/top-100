@@ -1,6 +1,10 @@
-import { Card, Image, H2, Paragraph, Text  } from 'tamagui';
-import { LuCircleUser, LuCopyright, LuDisc3, LuCalendar1 } from 'react-icons/lu';
+import { useState } from 'react';
+import { Card, Image, H2, Paragraph, Text, Button } from 'tamagui';
+import { LuCircleUser, LuCopyright, LuDisc3, LuCalendar1, LuHeart } from 'react-icons/lu';
 import * as motion from 'motion/react-client';
+
+import { isLiked, addLike, removeLike } from '../../utility/like-manager';
+import { GestureResponderEvent } from 'react-native';
 
 interface AlbumViewContentProps {
   rank?: number,
@@ -13,6 +17,18 @@ const AlbumViewContent: React.FC<AlbumViewContentProps> = ({
   album,
   fullWidth,
 }) => {
+
+  const [likesUpdated, setLikesUpdated] = useState<boolean>(false);
+  
+  const onLikeButtonClicked = (e: GestureResponderEvent, albumId: number) => {
+    e.stopPropagation();
+    if (isLiked(albumId)) {
+      removeLike(albumId);
+    } else {
+      addLike(albumId);
+    }
+    setLikesUpdated(!likesUpdated);
+  }
 
   return (
     <Card 
@@ -30,6 +46,17 @@ const AlbumViewContent: React.FC<AlbumViewContentProps> = ({
         <H2 size="$7">
           {rank && `${rank}. `}{album?.name}
         </H2>
+        <Button 
+          icon={<LuHeart size={20} fill={isLiked(album.id) ? 'red' : 'transparent'}/>}
+          circular size="$3" 
+          backgroundColor="transparent"
+          onPress={(e) => onLikeButtonClicked(e, album.id)}
+          style={{
+            position: 'absolute',
+            right: 15,
+            top: 15,
+          }}
+        />
         <Paragraph>
           {album?.category}
         </Paragraph>

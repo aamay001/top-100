@@ -58,7 +58,7 @@ const AlbumList: React.FC<AlbumListProps> = ({
                 }
                 iconAfter={
                   <Button 
-                    icon={<LuHeart size={20} fill={isLiked(album.id) ? 'red' : undefined}/>}
+                    icon={<LuHeart size={20} fill={isLiked(album.id) ? 'red' : 'transparent'}/>}
                     circular size="$3" 
                     backgroundColor="transparent"
                     onPress={(e) => onLikeButtonClicked(e, album.id)}
