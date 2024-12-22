@@ -68,7 +68,7 @@ const YouTubeVideoList: React.FC<YouTubeVideosProps> = ({
     }
 
     fetchVideo();
-  }, [searchTerm]);
+  }, [searchTerm, id]);
 
   const onVideoDoneLoading = () => { 
     setVideoLoadCount(prev => prev + 1);
