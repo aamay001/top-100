@@ -70,7 +70,7 @@ const YouTubeVideoList: React.FC<YouTubeVideosProps> = ({
 
   const onVideoDoneLoading = () => { 
     setVideoLoadCount(prev => prev + 1);
-    if (videoLoadCount + 1 >= 3) {
+    if (videoLoadCount + 1 >= 4) {
       setIsLoading(false);
     }
   }
