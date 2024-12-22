@@ -15,12 +15,10 @@ const YouTubeVideoList: React.FC<YouTubeVideosProps> = ({
 
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [videoInfo, setVideoInfo] = useState<YouTubeResponse | null>(null);
-  const [videoLoadCount, setVideoLoadCount] = useState<number>(0);
   const [error, setError] = useState<unknown>(null);
 
   useEffect(() => {
     setIsLoading(true);
-    setVideoLoadCount(0);
     setVideoInfo(null);
 
     if (!apiKey.youTube || !apiEnpoint.youTube) {
@@ -56,8 +54,9 @@ const YouTubeVideoList: React.FC<YouTubeVideosProps> = ({
           
         } else {
           setError(results);
-          setIsLoading(false);
         }
+
+        setIsLoading(false);
       } catch (error) {
         setError(error);
         setIsLoading(false);
@@ -66,13 +65,6 @@ const YouTubeVideoList: React.FC<YouTubeVideosProps> = ({
 
     fetchVideo();
   }, [searchTerm]);
-
-  const onVideoDoneLoading = () => { 
-    setVideoLoadCount(prev => prev + 1);
-    if (videoLoadCount + 1 >= 2) {
-      setIsLoading(false);
-    }
-  }
 
   if (!apiKey.youTube || !apiEnpoint.youTube || (error && (error as Response).status !== 403)) {
     return null;
@@ -109,7 +101,6 @@ const YouTubeVideoList: React.FC<YouTubeVideosProps> = ({
               <YouTubeVideo 
                 videoId={v.id.videoId} 
                 title={v.snippet.title} 
-                onLoad={onVideoDoneLoading} 
               />
             </li>)}
         </ul>}
