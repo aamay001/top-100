@@ -13,7 +13,8 @@ const COLOR_MODE_SAVE_KEY = 'color-mode';
 const ColorModeProvider: React.FC<ColorModeProviderProps> = ({ children, initialValue }) => {
   const saved: string | null = localStorage.getItem(COLOR_MODE_SAVE_KEY);
   const [colorMode, setColorMode] = useState<ColorMode>(saved as ColorMode || initialValue);
-  const [ colorModeBackgroundColor, setColorModeBackgroundColor] = useState<'gainsboro' | '#28282B'>('#28282B');
+  const [ colorModeBackgroundColor, setColorModeBackgroundColor] = useState<'gainsboro' | '#28282B'>
+    (colorMode === 'dark' ? '#28282B' : 'gainsboro');
 
   const toggleColorMode = () => {
     if (colorMode === 'dark') {
