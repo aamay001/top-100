@@ -5,7 +5,7 @@ import AlbumDataProvider from './contexts/album-data/album-data-provider';
 import Home from './pages/home';
 import useColorMode from './hooks/useColorMode';
 
-import './app.css';
+import './styles/app.scss';
 
 function App() {
   const { colorMode } = useColorMode();

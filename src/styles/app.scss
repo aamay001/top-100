@@ -1,5 +1,5 @@
 html {
-  background-color: black;
+  background-color: #28282B;
   max-width: 100VW;
 }
 
@@ -7,4 +7,5 @@ html * {
   scroll-behavior: smooth;
   -webkit-overflow-scrolling: touch;
   touch-action: pan-y;
+  font-family: "Inter", serif;
 }
