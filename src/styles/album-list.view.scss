@@ -5,7 +5,7 @@ $pane-default-width: 100VW;
 $pane-default-margin: 10px;
 $album-list-view-content-max-height: 100%;
 
-.album-list-view-container {
+.album-list-view-pane-container {
   flex-wrap: wrap-reverse;
   justify-content: center;
   align-items: center;
@@ -25,6 +25,11 @@ $album-list-view-content-max-height: 100%;
   max-width: $pane-max-width;
   width: $pane-default-width;
   margin: $pane-default-margin;
+}
+
+.album-list-view-search {
+  max-width: $pane-default-width;
+  width: $pane-default-width;
 }
 
 .album-view-container  {
@@ -55,6 +60,10 @@ $album-list-view-content-max-height: 100%;
   .album-list-view-right-pane {
     max-width: 40VW;
   }
+
+  .album-list-view-search {
+    max-width: calc(90VW + 5px);
+  }
 }
 
 /* Medium devices (desktops, 992px and up) */
@@ -66,6 +75,10 @@ $album-list-view-content-max-height: 100%;
   .album-list-view-right-pane {
     max-width: 40VW;
   }
+
+  .album-list-view-search {
+    max-width: 92VW;
+  }
 }
 
 /* Large devices (large desktops, 1200px and up) */
@@ -76,5 +89,9 @@ $album-list-view-content-max-height: 100%;
   
   .album-list-view-right-pane {
     max-width: 25VW;
+  }
+
+  .album-list-view-search {
+    max-width: calc(55VW + 20px);
   }
 }
