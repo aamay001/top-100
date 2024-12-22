@@ -54,6 +54,10 @@ const YouTubeVideoList: React.FC<YouTubeVideosProps> = ({
     }
   }
 
+  if (!apiKey.youTube || !apiEnpoint.youTube) {
+    return null;
+  }
+
   return (
     <YStack marginTop="$7" padding="$4">
       <H2 size="$7">Related Videos</H2>
