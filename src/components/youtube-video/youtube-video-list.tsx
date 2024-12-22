@@ -38,7 +38,8 @@ const YouTubeVideoList: React.FC<YouTubeVideosProps> = ({
       maxResults: '5',
       q: searchTerm,
       type: 'video',
-      key: apiKey.youTube
+      key: apiKey.youTube,
+      videoEmbeddable: 'true',
     };
 
     const query = '?' + Object.keys(queryParam).map((k) => k + '=' + encodeURIComponent(queryParam[k])).join('&')
@@ -67,9 +68,8 @@ const YouTubeVideoList: React.FC<YouTubeVideosProps> = ({
   }, [searchTerm]);
 
   const onVideoDoneLoading = () => { 
-    console.log('load count');
     setVideoLoadCount(prev => prev + 1);
-    if (videoLoadCount + 1 >= 4) {
+    if (videoLoadCount + 1 >= 2) {
       setIsLoading(false);
     }
   }
@@ -102,7 +102,7 @@ const YouTubeVideoList: React.FC<YouTubeVideosProps> = ({
               : 'visible',
             position: isLoading 
               ? 'fixed'
-              : 'initial'
+              : 'static'
           }}>
           {videoInfo && videoInfo?.items.map(v => 
             <li key={v.id.videoId} className="youtube-video-listitem">
