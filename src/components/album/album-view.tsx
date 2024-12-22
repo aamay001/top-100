@@ -56,9 +56,18 @@ const AlbumView: React.FC<AlbumViewProps> = ({
         >
           <Sheet.Overlay />
           <Sheet.Handle />
-          <Sheet.Frame padding="$4" alignItems="center" overflow="scroll" theme={theme.split('_')[0]}>
+          <Sheet.Frame 
+            padding="$4" 
+            alignItems="center" 
+            overflow="scroll" 
+            theme={theme.split('_')[0]}
+          >
             <YStack width="100%" theme={theme}>
-              <AlbumViewContent rank={listPosition} album={album} fullWidth />
+              <AlbumViewContent 
+                rank={listPosition} 
+                album={album} 
+                fullWidth 
+              />
             </YStack>
           </Sheet.Frame>
         </Sheet>
