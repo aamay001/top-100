@@ -3,10 +3,20 @@
   margin-bottom: 25px;
   text-align: center;
   text-wrap: wrap;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.youtube-video-embed iframe {
+  margin-bottom: 10px;
 }
 
 .youtube-video-listitem {
   list-style-type: none;
   margin: 0;
-  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-content: center;
 }

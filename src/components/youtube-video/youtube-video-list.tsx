@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { apiKey, apiEnpoint } from '../../settings/api-settings';
 import { H2, Spinner, XStack, YStack } from 'tamagui';
 import { YouTubeResponse } from '../../types/youtube-search-response';
-import YouTubeVideo from './youtube.video';
+import YouTubeVideo from './youtube-video';
 
 interface YouTubeVideosProps {
   searchTerm: string,
@@ -61,7 +61,12 @@ const YouTubeVideoList: React.FC<YouTubeVideosProps> = ({
   return (
     <YStack marginTop="$7" padding="$4">
       <H2 size="$7">Related Videos</H2>
-      <XStack justifyContent="center" paddingTop="$4">
+      <XStack 
+        justifyContent="center" 
+        paddingTop="$4" 
+        paddingLeft="$4" 
+        paddingRight="$4"
+      >
         {isLoading && <Spinner size="large" />}
         <ul style={{ 
             padding: 0, 
