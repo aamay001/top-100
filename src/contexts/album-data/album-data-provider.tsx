@@ -31,32 +31,39 @@ const AlbumDataProvider: React.FC<AlbumDataProviderProps> = ({ children }) => {
     setIsLoading(true);
 
     const fetchAlbumData = async () => {
-      const response = await fetch(ALBUM_DATA_SOURCE);
-      const data = await response.json();
-      const albumData = parseAlbumData(data as ItunesAlbumFeed);
-      const meta = getFeedMeta(data as ItunesAlbumFeed);
+      try {
+        const response = await fetch(ALBUM_DATA_SOURCE);
+        const data = await response.json();
+        
+        const albumData = parseAlbumData(data as ItunesAlbumFeed);
+        const meta = getFeedMeta(data as ItunesAlbumFeed);
 
-      const uniqueReleaseYears = new Set<string>();
-      const uniqueArtists = new Set<string>();
-      const uniqueCategories = new Set<string>();
+        const uniqueReleaseYears = new Set<string>();
+        const uniqueArtists = new Set<string>();
+        const uniqueCategories = new Set<string>();
 
-      albumData.forEach((a) => {
-        uniqueReleaseYears.add(a.year);
-        uniqueArtists.add(a.artist);
-        uniqueCategories.add(a.category);
-      });
+        albumData.forEach((a) => {
+          uniqueReleaseYears.add(a.year);
+          uniqueArtists.add(a.artist);
+          uniqueCategories.add(a.category);
+        });
 
-      setUniqueMeta({
-        releaseYears: Array.from(uniqueReleaseYears).sort(
-          (a, b) => a > b ? 1 : -1 ),
-        artists: Array.from(uniqueArtists).sort(
-          (a, b) => a > b ? 1 : -1 ),
-        categories: Array.from(uniqueCategories).sort(
-          (a, b) => a > b ? 1 : -1 ),
-      });
+        setUniqueMeta({
+          releaseYears: Array.from(uniqueReleaseYears).sort(
+            (a, b) => a > b ? 1 : -1 ),
+          artists: Array.from(uniqueArtists).sort(
+            (a, b) => a > b ? 1 : -1 ),
+          categories: Array.from(uniqueCategories).sort(
+            (a, b) => a > b ? 1 : -1 ),
+        });
 
-      setAlbums(albumData);
-      setFeedMeta(meta);
+        setAlbums(albumData);
+        setFeedMeta(meta);
+      } catch (err) {
+        console.error(err);
+        alert('Album data could not be loaded!');
+      }
+
       setIsLoading(false);
     }
 

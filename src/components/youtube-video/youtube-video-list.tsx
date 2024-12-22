@@ -13,13 +13,14 @@ const YouTubeVideoList: React.FC<YouTubeVideosProps> = ({
 }) => {
 
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [videoInfo, setVideoInfo] = useState<YouTubeResponse>();
+  const [videoInfo, setVideoInfo] = useState<YouTubeResponse | null>(null);
   const [videoLoadCount, setVideoLoadCount] = useState<number>(0);
+  const [error, setError] = useState<unknown>(null);
 
   useEffect(() => {
     setIsLoading(true);
     setVideoLoadCount(0);
-    setVideoInfo(undefined);
+    setVideoInfo(null);
 
     if (!apiKey.youTube || !apiEnpoint.youTube) {
       return;
@@ -36,14 +37,24 @@ const YouTubeVideoList: React.FC<YouTubeVideosProps> = ({
     const query = '?' + Object.keys(queryParam).map((k) => k + '=' + encodeURIComponent(queryParam[k])).join('&')
 
     const fetchVideo = async () => {
-      const results = await fetch(apiEnpoint.youTube + query);
+      try {
+        const results = await fetch(apiEnpoint.youTube + query);
 
-      const data: YouTubeResponse = await results.json();
-      setVideoInfo(data);
+        if (results.status === 200) {
+          const data: YouTubeResponse = await results.json();
+
+          setVideoInfo(data);
+        } else {
+          console.log(results);
+          setError(results);
+        }
+      } catch (error) {
+        console.error(error);
+        setError(error);
+      }
     }
 
     fetchVideo();
-
   }, [searchTerm]);
 
   const onVideoDoneLoading = () => { 
@@ -54,7 +65,7 @@ const YouTubeVideoList: React.FC<YouTubeVideosProps> = ({
     }
   }
 
-  if (!apiKey.youTube || !apiEnpoint.youTube) {
+  if (!apiKey.youTube || !apiEnpoint.youTube || error) {
     return null;
   }
 
@@ -79,7 +90,7 @@ const YouTubeVideoList: React.FC<YouTubeVideosProps> = ({
               ? 'fixed'
               : 'initial'
           }}>
-          {videoInfo?.items.map(v => 
+          {videoInfo && videoInfo?.items.map(v => 
             <li key={v.id.videoId} className="youtube-video-listitem">
               <YouTubeVideo 
                 videoId={v.id.videoId} 
