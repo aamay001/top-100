@@ -1,9 +1,26 @@
+$input-height: 40px;
+$input-border-style: groove;
+$input-border-width: 3px;
+$input-border-radius: 5px;
+
+#search-input {
+  margin: 0;
+  padding: 5px;
+  width: 100%;
+  border-radius: $input-border-radius;
+  border-style: $input-border-style;
+  height: $input-height;
+  border-width: $input-border-width;
+}
+
 .search-select {
-  border-radius: 5px;
-  font-size: 18px;
-  font-family: "Inter", serif;
+  border-radius: $input-border-radius;
+  height: $input-height;
+  border-width: $input-border-width;
+  border-style: groove;
+  padding: 3px;
 }
 
 .search-select-container {
-  max-width: 31%;
+  max-width: 32%;
 }

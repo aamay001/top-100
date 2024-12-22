@@ -1,6 +1,15 @@
 import { useState } from 'react';
 import { debounce } from 'es-toolkit';
-import { Card, XStack, H2, SizableText, YStack, Button, Tooltip, Paragraph } from 'tamagui';
+import { 
+  Card, 
+  XStack,
+  H2, 
+  SizableText, 
+  YStack, Button, 
+  Tooltip, 
+  Paragraph, 
+  useTheme,
+} from 'tamagui';
 import { LuInfo } from 'react-icons/lu';
 
 import { SEARCH_INFO_TEXT, SEARCH_INPUT_PLACEHOLDER } from '../../constants/strings';
@@ -60,6 +69,7 @@ const Search: React.FC<SearchFormProps> = ({
   const [filters, setFilters] = useState<SearchFilters>(initialFilters);
   const { categories, artists, releaseYears } = useAlbumData();
   const [currentResults, setCurrentResults] = useState<Album[] | null>(null);
+  const theme = useTheme();
 
   const onFormSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
@@ -83,7 +93,11 @@ const Search: React.FC<SearchFormProps> = ({
   }
 
   const onFilterChanged = (filter: keyof Album, value: string) => {
-    let results: Album[] = value === ''
+    const filtersOn = (filters.artist ? 1 : 0) +
+    (filters.category ? 1 : 0) +
+    (filters.year ? 1 : 0);
+
+    let results: Album[] = value === '' || filtersOn === 1
       ? data
       : currentResults || data;
 
@@ -114,14 +128,22 @@ const Search: React.FC<SearchFormProps> = ({
     }
 
     setFilters(updatedFilters);
-    if (updatedFilters.artist === '' && 
-      updatedFilters.category === '' && 
-      updatedFilters.year === '') {
-      setCurrentResults(null);
+
+    if (query) {
+      filterResults(results, 'name', query, (res) => {
+        setCurrentResults(res);
+        onSearch(res);
+      });
     } else {
-      setCurrentResults(results);
+      if (updatedFilters.artist === '' && 
+        updatedFilters.category === '' && 
+        updatedFilters.year === '') {
+        setCurrentResults(null);
+      } else {
+        setCurrentResults(results);
+      }
+      onSearch(results);
     }
-    onSearch(results);
   }
 
   return (
@@ -137,7 +159,7 @@ const Search: React.FC<SearchFormProps> = ({
           <Tooltip.Trigger>
             <Button icon={<LuInfo size={30} />} circular size="$3" />
           </Tooltip.Trigger>
-          <Tooltip.Content size="$4" maxWidth="90VW">
+          <Tooltip.Content size="$4" maxWidth="75VW">
             <Tooltip.Arrow />
             <Paragraph whiteSpace="pre-line">
               {SEARCH_INFO_TEXT}
@@ -145,78 +167,99 @@ const Search: React.FC<SearchFormProps> = ({
           </Tooltip.Content>
         </Tooltip>
       </Card.Header>
-      <XStack justifyContent="center">
-        <form onSubmit={onFormSubmit} style={{ width: '100%' }}>
-          <SizableText size="$6" flex={1} width="100%">
-            <input 
-              type="text" 
-              minLength={2} 
-              onChange={onInputChanged} 
-              value={query}
-              style={{ 
-                margin: 0,
-                padding: 5,
-                width: '98%',
-                borderRadius: 5,
-              }}
-              placeholder={SEARCH_INPUT_PLACEHOLDER}
-            />
-          </SizableText>
-        </form>
-      </XStack>
-      <XStack marginTop={10} justifyContent="space-between" flexWrap="wrap">
-        <YStack flex={1} className="search-select-container">
-          <SizableText size="$6">
-            <label htmlFor="artist-select">Artist</label>
-          </SizableText>
+      <form onSubmit={onFormSubmit} style={{ width: '100%' }}>
+        <XStack justifyContent="center">
+          <input 
+            type="text" 
+            minLength={2} 
+            onChange={onInputChanged}
+            id="search-input"
+            value={query}
+            style={{
+              backgroundColor: theme.background?.val,
+              borderColor: theme.borderColor?.val,
+              color: !query 
+                ? theme.placeholderColor?.val
+                : theme.color?.val,
+            }}
+            placeholder={SEARCH_INPUT_PLACEHOLDER}
+          />
+        </XStack>
+        <XStack marginTop={10} justifyContent="space-between" flexWrap="wrap">
+          <YStack flex={1} className="search-select-container" >
+            <SizableText size="$6">
+              <label htmlFor="artist-select">Artist</label>
+            </SizableText>
+              <select 
+                id="artist-select" 
+                className="search-select"
+                value={filters.artist} 
+                onChange={({ currentTarget: { value }}) =>
+                  onFilterChanged('artist', value)}
+                style={{
+                  backgroundColor: theme.background?.val,
+                  borderColor: theme.borderColor?.val,
+                  color: !filters.artist 
+                    ? 'gray'
+                    : theme.color?.val,
+                }}
+              >
+                <option value="">select artist</option>
+                {((filters.category || filters.year || query) && dedupAndSort(currentResults?.map(a => a.artist)) || artists).map(a => (
+                  <option key={a} value={a}>{a}</option>
+                ))}
+              </select>
+          </YStack>
+          <YStack flex={1} className="search-select-container">
+            <SizableText size="$6">
+              <label htmlFor="category-select">Category</label>
+            </SizableText>
             <select 
-              id="artist-select" 
+              id="category-select" 
               className="search-select"
-              value={filters.artist} 
+              value={filters.category} 
               onChange={({ currentTarget: { value }}) =>
-                onFilterChanged('artist', value)}
+                onFilterChanged('category', value)}
+              style={{
+                backgroundColor: theme.background?.val,
+                borderColor: theme.borderColor?.val,
+                color: !filters.category 
+                  ? 'gray'
+                  : theme.color?.val,
+              }}
             >
-              <option value=""></option>
-              {(dedupAndSort(currentResults?.map(a => a.artist)) || artists).map(a => (
-                <option key={a} value={a}>{a}</option>
+              <option value="">select category</option>
+              {((filters.artist || filters.year || query) && dedupAndSort(currentResults?.map(a => a.category)) || categories).map(c => (
+                <option key={c} value={c}>{c}</option>
               ))}
             </select>
-        </YStack>
-        <YStack flex={1} className="search-select-container">
-          <SizableText size="$6">
-            <label htmlFor="category-select">Category</label>
-          </SizableText>
-          <select 
-            id="category-select" 
-            className="search-select"
-            value={filters.category} 
-            onChange={({ currentTarget: { value }}) =>
-              onFilterChanged('category', value)}
-          >
-            <option value=""></option>
-            {(dedupAndSort(currentResults?.map(a => a.category)) || categories).map(c => (
-              <option key={c} value={c}>{c}</option>
-            ))}
-          </select>
-        </YStack>
-        <YStack flex={1} className="search-select-container">
-          <SizableText size="$6">
-            <label htmlFor="year-select">Year</label>
-          </SizableText>
-          <select 
-            id="year-select" 
-            className="search-select" 
-            value={filters.year} 
-            onChange={({ currentTarget: { value }}) =>
-              onFilterChanged('year', value)}
-          >
-            <option value=""></option>
-            {(dedupAndSort(currentResults?.map(a => a.year)) || releaseYears).map(y => (
-              <option key={y} value={y}>{y}</option>
-            ))}
-          </select>
-        </YStack>
-      </XStack>
+          </YStack>
+          <YStack flex={1} className="search-select-container">
+            <SizableText size="$6">
+              <label htmlFor="year-select">Year</label>
+            </SizableText>
+            <select 
+              id="year-select" 
+              className="search-select" 
+              value={filters.year} 
+              onChange={({ currentTarget: { value }}) =>
+                onFilterChanged('year', value)}
+              style={{
+                backgroundColor: theme.background?.val,
+                borderColor: theme.borderColor?.val,
+                color: !filters.year 
+                  ? 'gray'
+                  : theme.color?.val,
+              }}
+            >
+              <option value="">select year</option>
+              {((filters.category || filters.artist || query) && dedupAndSort(currentResults?.map(a => a.year)) || releaseYears).map(y => (
+                <option key={y} value={y}>{y}</option>
+              ))}
+            </select>
+          </YStack>
+        </XStack>
+      </form>
     </Card>
   );
 }
