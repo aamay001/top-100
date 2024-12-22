@@ -7,10 +7,12 @@ import * as youTubeCache from '../../utility/youtube-data-cache';
 
 interface YouTubeVideosProps {
   searchTerm: string,
+  id: number,
 }
 
 const YouTubeVideoList: React.FC<YouTubeVideosProps> = ({
   searchTerm,
+  id,
 }) => {
 
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -27,8 +29,8 @@ const YouTubeVideoList: React.FC<YouTubeVideosProps> = ({
       return;
     }
 
-    if (youTubeCache.hasYouTubeCached(searchTerm)) {
-      const cache = youTubeCache.getYouTubeCacheData(searchTerm);
+    if (youTubeCache.hasCached(id)) {
+      const cache = youTubeCache.getCache(id);
       setVideoInfo(cache);
       setIsLoading(false);
       return;
@@ -53,7 +55,7 @@ const YouTubeVideoList: React.FC<YouTubeVideosProps> = ({
           const data: YouTubeResponse = await results.json();
 
           setVideoInfo(data);
-          youTubeCache.setYouTubeCache(searchTerm, data);
+          youTubeCache.setCache(id, data);
           
         } else {
           setError(results);

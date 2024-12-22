@@ -102,7 +102,7 @@ const AlbumViewContent: React.FC<AlbumViewContentProps> = ({
             alignSelf="center"
           />
       </motion.div>
-      <YouTubeVideoList searchTerm={album.title} />
+      <YouTubeVideoList searchTerm={album.title} id={album.id} />
       <Card.Footer padded>
         <Text fontSize="$4">
           <ul className="album-view-meta">
