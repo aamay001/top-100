@@ -1,10 +1,17 @@
 import { useState } from 'react';
 import { Card, Image, H2, Paragraph, Text, Button } from 'tamagui';
-import { LuCircleUser, LuCopyright, LuDisc3, LuCalendar1, LuHeart } from 'react-icons/lu';
+import { 
+  LuCircleUser, 
+  LuCopyright, 
+  LuDisc3, 
+  LuCalendar1, 
+  LuHeart
+} from 'react-icons/lu';
 import * as motion from 'motion/react-client';
+import { GestureResponderEvent } from 'react-native';
 
 import { isLiked, addLike, removeLike } from '../../utility/like-manager';
-import { GestureResponderEvent } from 'react-native';
+import YouTubeVideoList from '../youtube-video/youtube-video-list';
 
 interface AlbumViewContentProps {
   rank?: number,
@@ -47,7 +54,12 @@ const AlbumViewContent: React.FC<AlbumViewContentProps> = ({
           {rank && `${rank}. `}{album?.name}
         </H2>
         <Button 
-          icon={<LuHeart size={20} fill={isLiked(album.id) ? 'red' : 'transparent'}/>}
+          icon={
+            <LuHeart 
+              size={20} 
+              fill={isLiked(album.id) ? 'red' : 'transparent'}
+            />
+          }
           circular size="$3" 
           backgroundColor="transparent"
           onPress={(e) => onLikeButtonClicked(e, album.id)}
@@ -90,6 +102,7 @@ const AlbumViewContent: React.FC<AlbumViewContentProps> = ({
             alignSelf="center"
           />
       </motion.div>
+      <YouTubeVideoList searchTerm={album.title} />
       <Card.Footer padded>
         <Text fontSize="$4">
           <ul className="album-view-meta">
