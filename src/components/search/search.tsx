@@ -34,7 +34,6 @@ const filterResults = (
   search: string, 
   callback: (a: Album[] | null) => void
 ) => {
-  console.log('search called')
   if (search.length >= 3) {
     const results = arr.filter((d: Album) => {
       if ((d[key] as string).toLowerCase().includes(search.toLowerCase())){
@@ -158,7 +157,7 @@ const Search: React.FC<SearchFormProps> = ({
                 margin: 0,
                 padding: 5,
                 width: '98%',
-                borderRadius: 5
+                borderRadius: 5,
               }}
               placeholder={SEARCH_INPUT_PLACEHOLDER}
             />
