@@ -6,15 +6,18 @@ import * as defaultConfig from '@tamagui/config/v3';
 
 import 'normalize.css';
 import App from './app.tsx';
+import ColorModeProvider from './contexts/color-mode/color-mode-provider.tsx';
 
 const config = createTamagui(defaultConfig);
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <BrowserRouter>
-      <TamaguiProvider config={config}>
-        <App />
-      </TamaguiProvider>
+      <ColorModeProvider initialValue='dark'>
+        <TamaguiProvider config={config}>
+          <App />
+        </TamaguiProvider>
+      </ColorModeProvider>
     </BrowserRouter>
   </StrictMode>,
 );
