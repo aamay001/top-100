@@ -38,8 +38,19 @@ $album-list-view-content-max-height: 100%;
   margin-bottom: 0;
   position: sticky !important;
   top: 10px;
-  overflow-y: auto !important;
-  max-height: 95VH;
+}
+
+@media (orientation: portrait) {
+  .album-view-container  {
+    max-height: 100%;
+  }
+}
+
+@media (orientation: landscape) {
+  .album-view-container  {
+    overflow-y: auto !important;
+    max-height: 95VH;
+  }
 }
 
 .album-view-meta, .album-view-meta li {
@@ -64,6 +75,13 @@ $album-list-view-content-max-height: 100%;
 
   .album-list-view-search {
     max-width: calc(90VW + 5px);
+  }
+
+  @media (orientation: portrait) {
+    .album-view-container  {
+      max-height: 95VH;
+      overflow-y: auto !important;
+    }
   }
 }
 
