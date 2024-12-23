@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Card, Image, H2, Paragraph, Text, Button } from 'tamagui';
 import { 
   LuCircleUser, 
@@ -12,6 +12,7 @@ import { GestureResponderEvent } from 'react-native';
 
 import { isLiked, addLike, removeLike } from '../../utility/like-manager';
 import YouTubeVideoList from '../youtube-video/youtube-video-list';
+import { addCallback } from "../../utility/like-manager";
 
 interface AlbumViewContentProps {
   rank?: number,
@@ -24,8 +25,13 @@ const AlbumViewContent: React.FC<AlbumViewContentProps> = ({
   album,
   fullWidth,
 }) => {
-
   const [likesUpdated, setLikesUpdated] = useState<boolean>(false);
+
+  useEffect(() => {
+    addCallback('album-view', () => {
+      setLikesUpdated(!likesUpdated);
+    });
+  }, [likesUpdated]);
   
   const onLikeButtonClicked = (e: GestureResponderEvent, albumId: number) => {
     e.stopPropagation();

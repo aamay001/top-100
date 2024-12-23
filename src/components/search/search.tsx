@@ -23,6 +23,7 @@ interface SearchFormProps {
   dataKey: keyof Album,
   onSearch: (results: Album[] | null) => void,
   className?: string,
+  disable: boolean,
 }
 
 interface SearchFilters {
@@ -41,7 +42,7 @@ const filterResults = (
   arr: Album[],
   key: keyof Album,
   search: string,
-  callback: (a: Album[] | null) => void
+  callback: (a: Album[] | null) => void,
 ) => {
   if (search.length >= 3) {
     const results = arr.filter((d: Album) => {
@@ -64,6 +65,7 @@ const Search: React.FC<SearchFormProps> = ({
   dataKey,
   onSearch,
   className,
+  disable,
 }) => {
   const [query, setQuery] = useState<string>('');
   const [filters, setFilters] = useState<SearchFilters>(initialFilters);
@@ -148,7 +150,13 @@ const Search: React.FC<SearchFormProps> = ({
   }
 
   return (
-    <Card padding="$5" paddingBottom="$7" marginTop="$5" className={className}>
+    <Card 
+      padding="$5" 
+      paddingBottom="$7" 
+      marginTop="$5" 
+      className={className} 
+      opacity={disable ? 0.35 : 1}
+    >
       <Card.Header
         padding="0"
         flexDirection="row"
@@ -187,6 +195,7 @@ const Search: React.FC<SearchFormProps> = ({
             id="search-input"
             value={query}
             tabIndex={1}
+            disabled={disable}
             style={{
               backgroundColor: theme.background?.val,
               borderColor: theme.borderColor?.val,
@@ -203,6 +212,7 @@ const Search: React.FC<SearchFormProps> = ({
               <label htmlFor="artist-select">Artist</label>
             </SizableText>
               <select
+                disabled={disable}
                 tabIndex={2}
                 id="artist-select"
                 className="search-select"
@@ -230,6 +240,7 @@ const Search: React.FC<SearchFormProps> = ({
               <label htmlFor="category-select">Category</label>
             </SizableText>
             <select
+              disabled={disable}
               tabIndex={3}
               id="category-select"
               className="search-select"
@@ -257,6 +268,7 @@ const Search: React.FC<SearchFormProps> = ({
               <label htmlFor="year-select">Year</label>
             </SizableText>
             <select
+              disabled={disable}
               tabIndex={4}
               id="year-select"
               className="search-select"

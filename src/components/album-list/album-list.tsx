@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   YStack,
   YGroup,
@@ -11,6 +11,8 @@ import { LuHeart } from "react-icons/lu";
 import { addLike, isLiked, removeLike } from "../../utility/like-manager";
 import { GestureResponderEvent } from "react-native";
 
+import { addCallback } from "../../utility/like-manager";
+
 interface AlbumListProps {
   albums: Album[];
   onAlbumClicked: (a: Album, p: number) => void;
@@ -21,6 +23,12 @@ const AlbumList: React.FC<AlbumListProps> = ({
   onAlbumClicked,
 }) => {
   const [likesUpdated, setLikesUpdated] = useState<boolean>(false);
+
+  useEffect(() => {
+    addCallback('album-list', () => {
+      setLikesUpdated(!likesUpdated);
+    });
+  }, [likesUpdated]);
 
   const onLikeButtonClicked = (e: GestureResponderEvent, albumId: number) => {
     e.stopPropagation();

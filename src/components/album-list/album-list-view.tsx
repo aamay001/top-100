@@ -81,6 +81,7 @@ const AlbumListView: React.FC<AlbumListViewProps> = ({
           dataKey="name" 
           onSearch={onSearchResults} 
           className="album-list-view-search"
+          disable={isLoading}
         />
         <XStack className="album-list-view-pane-container">
         {isLoading
