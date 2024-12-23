@@ -69,6 +69,7 @@ const Search: React.FC<SearchFormProps> = ({
   const [filters, setFilters] = useState<SearchFilters>(initialFilters);
   const { categories, artists, releaseYears } = useAlbumData();
   const [currentResults, setCurrentResults] = useState<Album[] | null>(null);
+  const [toolTipOpen, setToolTipOpen] = useState<boolean>(false);
   const theme = useTheme();
 
   const onFormSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
@@ -155,9 +156,14 @@ const Search: React.FC<SearchFormProps> = ({
         alignItems="baseline"
       >
         <H2 size="$7">Search</H2>
-        <Tooltip placement="left" delay={10}>
+        <Tooltip
+          placement="left"
+          delay={10}
+          onOpenChange={setToolTipOpen}
+          open={toolTipOpen}
+        >
           <Tooltip.Trigger>
-            <Button icon={<LuInfo size={30} />} circular size="$3" tabIndex={5} />
+            <Button icon={<LuInfo size={30} />} circular size="$3" tabIndex={5} onPress={() => setToolTipOpen(!toolTipOpen)} />
           </Tooltip.Trigger>
           <Tooltip.Content size="$4" maxWidth="75VW">
             <Tooltip.Arrow />
