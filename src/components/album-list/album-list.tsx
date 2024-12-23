@@ -48,6 +48,7 @@ const AlbumList: React.FC<AlbumListProps> = ({
                 padded
                 tabIndex={5 + position}
                 onPress={() => onAlbumClicked(album, position)}
+                role="button"
                 icon={
                   <Image
                     source={{
