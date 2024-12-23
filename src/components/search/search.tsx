@@ -163,7 +163,12 @@ const Search: React.FC<SearchFormProps> = ({
           open={toolTipOpen}
         >
           <Tooltip.Trigger>
-            <Button icon={<LuInfo size={30} />} circular size="$3" tabIndex={5} onPress={() => setToolTipOpen(!toolTipOpen)} />
+            <Button
+              icon={<LuInfo size={30} />}
+              circular size="$3"
+              tabIndex={5}
+              onPress={() => setToolTipOpen(!toolTipOpen)}
+            />
           </Tooltip.Trigger>
           <Tooltip.Content size="$4" maxWidth="75VW">
             <Tooltip.Arrow />

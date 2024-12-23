@@ -23,7 +23,7 @@ const YouTubeVideoList: React.FC<YouTubeVideosProps> = ({
   useEffect(() => {
     setIsLoading(true);
     setVideoLoadCount(0);
-    setVideoInfo(null);
+    setVideoInfo(() => null);
 
     if (!apiKey.youTube || !apiEnpoint.youTube) {
       return;
@@ -32,7 +32,6 @@ const YouTubeVideoList: React.FC<YouTubeVideosProps> = ({
     if (youTubeCache.hasCached(id)) {
       const cache = youTubeCache.getCache(id);
       setVideoInfo(cache);
-      setIsLoading(false);
       return;
     }
 
@@ -56,11 +55,11 @@ const YouTubeVideoList: React.FC<YouTubeVideosProps> = ({
 
           setVideoInfo(data);
           youTubeCache.setCache(id, data);
-          
+
         } else {
           setError(results);
         }
-        setIsLoading(false);
+        // setIsLoading(false);
       } catch (error) {
         setError(error);
         setIsLoading(false);
@@ -70,7 +69,7 @@ const YouTubeVideoList: React.FC<YouTubeVideosProps> = ({
     fetchVideo();
   }, [searchTerm, id]);
 
-  const onVideoDoneLoading = () => { 
+  const onVideoDoneLoading = () => {
     setVideoLoadCount(prev => prev + 1);
     if (videoLoadCount + 1 >= 4) {
       setIsLoading(false);
@@ -84,35 +83,36 @@ const YouTubeVideoList: React.FC<YouTubeVideosProps> = ({
   return (
     <YStack marginTop="$7" padding="$4">
       <H2 size="$7">Related Videos</H2>
-      <XStack 
-        justifyContent="center" 
-        paddingTop="$4" 
-        paddingLeft="$4" 
+      <XStack
+        justifyContent="center"
+        paddingTop="$4"
+        paddingLeft="$4"
         paddingRight="$4"
       >
         {isLoading && <Spinner size="large" />}
-        {error && 
+        {error &&
           <Paragraph size="$4" textAlign="center">
             YouTube API Quota reached!<br />
             Try again tomorrow to see the YouTube results!
           </Paragraph>}
-        {!error && <ul style={{ 
-            padding: 0, 
-            margin: 0, 
-            marginTop: 15, 
-            visibility: isLoading 
+        {!error &&
+          <ul style={{
+            padding: 0,
+            margin: 0,
+            marginTop: 15,
+            visibility: isLoading
               ? 'hidden'
               : 'visible',
-            position: isLoading 
+            position: isLoading
               ? 'fixed'
               : 'static'
           }}>
-          {videoInfo && videoInfo?.items.map(v => 
+          {videoInfo && videoInfo?.items.map(v =>
             <li key={v.id.videoId} className="youtube-video-listitem">
-              <YouTubeVideo 
-                videoId={v.id.videoId} 
-                title={v.snippet.title} 
-                onLoad={onVideoDoneLoading} 
+              <YouTubeVideo
+                videoId={v.id.videoId}
+                title={v.snippet.title}
+                onLoad={onVideoDoneLoading}
               />
             </li>)}
         </ul>}
