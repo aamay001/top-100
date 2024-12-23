@@ -32,6 +32,7 @@ const YouTubeVideoList: React.FC<YouTubeVideosProps> = ({
     if (youTubeCache.hasCached(id)) {
       const cache = youTubeCache.getCache(id);
       setVideoInfo(cache);
+      setIsLoading(false);
       return;
     }
 
@@ -59,7 +60,7 @@ const YouTubeVideoList: React.FC<YouTubeVideosProps> = ({
         } else {
           setError(results);
         }
-        // setIsLoading(false);
+        setIsLoading(false);
       } catch (error) {
         setError(error);
         setIsLoading(false);
