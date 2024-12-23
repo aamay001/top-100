@@ -7,7 +7,6 @@ const reportUpdate = () => {
   for (const c of callBacks) {
     c[1]();
   }
-  console.log(callBacks);
 }
 
 export const addLike = (id: number) => {
