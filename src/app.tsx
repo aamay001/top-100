@@ -17,7 +17,7 @@ function App() {
           <PortalProvider shouldAddRootHost>
             <AlbumDataProvider>
               <Routes>
-                <Route path="/" element={<Home />} />
+                <Route path="*" element={<Home />} />
               </Routes>
             </AlbumDataProvider>
           </PortalProvider>
