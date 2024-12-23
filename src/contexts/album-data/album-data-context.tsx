@@ -10,6 +10,7 @@ interface AlbumDataContextValue {
   categories: string[],
   releaseYears: string[],
   artists: string[],
+  error?: TypeError | Error,
 }
 
 const AlbumDataContext = createContext<AlbumDataContextValue | null>(null);

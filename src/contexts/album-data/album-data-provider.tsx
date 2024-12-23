@@ -26,6 +26,7 @@ const AlbumDataProvider: React.FC<AlbumDataProviderProps> = ({ children }) => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [feedMeta, setFeedMeta] = useState<AlbumFeedMeta | null>(null);
   const [uniqeMeta, setUniqueMeta] = useState<AlbumDataUniqueMetaState>(defaultUniqueMeta);
+  const [error, setError] = useState<Error | undefined>(undefined);
 
   const refresh = () => {
     setIsLoading(true);
@@ -59,9 +60,8 @@ const AlbumDataProvider: React.FC<AlbumDataProviderProps> = ({ children }) => {
 
         setAlbums(albumData);
         setFeedMeta(meta);
-      } catch (err) {
-        console.error(err);
-        alert('Album data could not be loaded!');
+      } catch(err) {
+        setError(new TypeError((err as TypeError).message + '. Album data could not be loaded!'));
       }
 
       setIsLoading(false);
@@ -80,6 +80,7 @@ const AlbumDataProvider: React.FC<AlbumDataProviderProps> = ({ children }) => {
         releaseYears: uniqeMeta.releaseYears,
         artists: uniqeMeta.artists,
         categories: uniqeMeta.categories,
+        error,
       }}
     >
       {children}

@@ -8,7 +8,7 @@ import { ErrorBoundary } from 'react-error-boundary';
 import Error from '../components/app/error';
 
 const Home = () => {
-  const { refresh, albums, isLoading } = useAlbumData();
+  const { refresh, albums, isLoading, error } = useAlbumData();
   const { colorModeBackgroundColor } = useColorMode();
 
   useEffect(() => {
@@ -19,13 +19,16 @@ const Home = () => {
   return (
     <YStack backgroundColor={colorModeBackgroundColor} padding="$5">
       <ColorModeToggle />
-      <ErrorBoundary fallback={<Error />}>
-        <AlbumListView 
-          title="Top 100 Albums" 
-          albums={albums} 
-          isLoading={isLoading} 
-        />
-      </ErrorBoundary>
+      {!error &&
+        <ErrorBoundary fallback={<Error />}>
+          <AlbumListView 
+            title="Top 100 Albums" 
+            albums={albums} 
+            isLoading={isLoading} 
+          />
+        </ErrorBoundary>}
+      {error &&
+        <Error error={error} />}
     </YStack>
   );
 }
