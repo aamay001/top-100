@@ -40,6 +40,10 @@ $album-list-view-content-max-height: 100%;
   top: 10px;
 }
 
+.album-view-container::-webkit-scrollbar, #album-sheet-frame::-webkit-scrollbar {
+  display: none;
+}
+
 @media (orientation: portrait) {
   .album-view-container  {
     max-height: 100%;
@@ -49,6 +53,7 @@ $album-list-view-content-max-height: 100%;
 @media (orientation: landscape) {
   .album-view-container  {
     overflow-y: auto !important;
+
     max-height: 95VH;
   }
 }
@@ -68,7 +73,7 @@ $album-list-view-content-max-height: 100%;
   .album-list-view-left-pane {
     max-width: 48VW;
   }
-  
+
   .album-list-view-right-pane {
     max-width: 40VW;
   }
@@ -90,7 +95,7 @@ $album-list-view-content-max-height: 100%;
   .album-list-view-left-pane {
     max-width: 50VW;
   }
-  
+
   .album-list-view-right-pane {
     max-width: 40VW;
   }
@@ -105,7 +110,7 @@ $album-list-view-content-max-height: 100%;
   .album-list-view-left-pane {
     max-width: 30VW;
   }
-  
+
   .album-list-view-right-pane {
     max-width: 25VW;
   }

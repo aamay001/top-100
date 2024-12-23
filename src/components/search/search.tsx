@@ -1,13 +1,13 @@
 import { useState } from 'react';
 import { debounce } from 'es-toolkit';
-import { 
-  Card, 
+import {
+  Card,
   XStack,
-  H2, 
-  SizableText, 
-  YStack, Button, 
-  Tooltip, 
-  Paragraph, 
+  H2,
+  SizableText,
+  YStack, Button,
+  Tooltip,
+  Paragraph,
   useTheme,
 } from 'tamagui';
 import { LuInfo } from 'react-icons/lu';
@@ -21,7 +21,7 @@ import '../../styles/search.scss';
 interface SearchFormProps {
   data: Album[],
   dataKey: keyof Album,
-  onSearch: (results: Album[] | null) => void, 
+  onSearch: (results: Album[] | null) => void,
   className?: string,
 }
 
@@ -38,14 +38,14 @@ const initialFilters: SearchFilters = {
 };
 
 const filterResults = (
-  arr: Album[], 
-  key: keyof Album, 
-  search: string, 
+  arr: Album[],
+  key: keyof Album,
+  search: string,
   callback: (a: Album[] | null) => void
 ) => {
   if (search.length >= 3) {
     const results = arr.filter((d: Album) => {
-      if ((d[key] as string).toLowerCase().includes(search.toLowerCase())){
+      if ((d[key] as string).toLowerCase().includes(search.trim().toLowerCase())){
           return true;
       }
       return false;
@@ -135,8 +135,8 @@ const Search: React.FC<SearchFormProps> = ({
         onSearch(res);
       });
     } else {
-      if (updatedFilters.artist === '' && 
-        updatedFilters.category === '' && 
+      if (updatedFilters.artist === '' &&
+        updatedFilters.category === '' &&
         updatedFilters.year === '') {
         setCurrentResults(null);
       } else {
@@ -157,7 +157,7 @@ const Search: React.FC<SearchFormProps> = ({
         <H2 size="$7">Search</H2>
         <Tooltip placement="left" delay={10}>
           <Tooltip.Trigger>
-            <Button icon={<LuInfo size={30} />} circular size="$3" />
+            <Button icon={<LuInfo size={30} />} circular size="$3" tabIndex={5} />
           </Tooltip.Trigger>
           <Tooltip.Content size="$4" maxWidth="75VW">
             <Tooltip.Arrow />
@@ -169,16 +169,17 @@ const Search: React.FC<SearchFormProps> = ({
       </Card.Header>
       <form onSubmit={onFormSubmit} style={{ width: '100%' }}>
         <XStack justifyContent="center">
-          <input 
-            type="text" 
-            minLength={2} 
+          <input
+            type="text"
+            minLength={2}
             onChange={onInputChanged}
             id="search-input"
             value={query}
+            tabIndex={1}
             style={{
               backgroundColor: theme.background?.val,
               borderColor: theme.borderColor?.val,
-              color: !query 
+              color: !query
                 ? theme.placeholderColor?.val
                 : theme.color?.val,
             }}
@@ -190,16 +191,17 @@ const Search: React.FC<SearchFormProps> = ({
             <SizableText size="$6">
               <label htmlFor="artist-select">Artist</label>
             </SizableText>
-              <select 
-                id="artist-select" 
+              <select
+                tabIndex={2}
+                id="artist-select"
                 className="search-select"
-                value={filters.artist} 
+                value={filters.artist}
                 onChange={({ currentTarget: { value }}) =>
                   onFilterChanged('artist', value)}
                 style={{
                   backgroundColor: theme.background?.val,
                   borderColor: theme.borderColor?.val,
-                  color: !filters.artist 
+                  color: !filters.artist
                     ? 'gray'
                     : theme.color?.val,
                 }}
@@ -216,16 +218,17 @@ const Search: React.FC<SearchFormProps> = ({
             <SizableText size="$6">
               <label htmlFor="category-select">Category</label>
             </SizableText>
-            <select 
-              id="category-select" 
+            <select
+              tabIndex={3}
+              id="category-select"
               className="search-select"
-              value={filters.category} 
+              value={filters.category}
               onChange={({ currentTarget: { value }}) =>
                 onFilterChanged('category', value)}
               style={{
                 backgroundColor: theme.background?.val,
                 borderColor: theme.borderColor?.val,
-                color: !filters.category 
+                color: !filters.category
                   ? 'gray'
                   : theme.color?.val,
               }}
@@ -242,16 +245,17 @@ const Search: React.FC<SearchFormProps> = ({
             <SizableText size="$6">
               <label htmlFor="year-select">Year</label>
             </SizableText>
-            <select 
-              id="year-select" 
-              className="search-select" 
-              value={filters.year} 
+            <select
+              tabIndex={4}
+              id="year-select"
+              className="search-select"
+              value={filters.year}
               onChange={({ currentTarget: { value }}) =>
                 onFilterChanged('year', value)}
               style={{
                 backgroundColor: theme.background?.val,
                 borderColor: theme.borderColor?.val,
-                color: !filters.year 
+                color: !filters.year
                   ? 'gray'
                   : theme.color?.val,
               }}

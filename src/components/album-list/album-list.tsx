@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import { 
-  YStack, 
-  YGroup, 
-  Separator, 
-  ListItem, 
+import {
+  YStack,
+  YGroup,
+  Separator,
+  ListItem,
   Image,
   Button,
 } from "tamagui";
@@ -16,8 +16,8 @@ interface AlbumListProps {
   onAlbumClicked: (a: Album, p: number) => void;
 }
 
-const AlbumList: React.FC<AlbumListProps> = ({ 
-  albums, 
+const AlbumList: React.FC<AlbumListProps> = ({
+  albums,
   onAlbumClicked,
 }) => {
   const [likesUpdated, setLikesUpdated] = useState<boolean>(false);
@@ -41,25 +41,27 @@ const AlbumList: React.FC<AlbumListProps> = ({
 
           return (
             <YGroup.Item key={id}>
-              <ListItem 
-                title={`${position}. ${name}`} 
-                hoverTheme 
-                pressTheme 
+              <ListItem
+                title={`${position}. ${name}`}
+                hoverTheme
+                pressTheme
                 padded
+                tabIndex={5 + position}
                 onPress={() => onAlbumClicked(album, position)}
                 icon={
-                  <Image 
-                    source={{ 
-                      uri: album.images.small, 
-                      width: 55, 
-                      height: 55 
+                  <Image
+                    source={{
+                      uri: album.images.small,
+                      width: 55,
+                      height: 55
                     }}
                   />
                 }
                 iconAfter={
-                  <Button 
+                  <Button
                     icon={<LuHeart size={20} fill={isLiked(album.id) ? 'red' : 'transparent'}/>}
-                    circular size="$3" 
+                    circular size="$3"
+                    tabIndex={5 + position + 1}
                     backgroundColor="transparent"
                     onPress={(e) => onLikeButtonClicked(e, album.id)}
                   />
